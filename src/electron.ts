@@ -1,15 +1,9 @@
 import { app, BrowserWindow } from 'electron';
-import path from 'path';
-import url from 'url';
+import path from 'node:path';
 
-// tslint:disable-next-line: no-var-requires
-if (require('electron-squirrel-startup')) {
-  app.quit();
-}
+let mainWindow: BrowserWindow | null = null;
 
-let mainWindow: BrowserWindow | null;
-
-function createWindow() {
+function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -20,18 +14,14 @@ function createWindow() {
 
   mainWindow.setMenu(null);
 
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'public/index.html'),
-    protocol: 'file:'
-  }));
+  mainWindow.loadFile(path.join(__dirname, 'public', 'index.html'));
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
 }
 
-app.on('ready', createWindow);
+app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -40,7 +30,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
