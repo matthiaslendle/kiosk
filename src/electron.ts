@@ -12,6 +12,8 @@ function createWindow(): void {
     }
   });
 
+  mainWindow.webContents.openDevTools();
+
   mainWindow.setMenu(null);
 
   mainWindow.loadFile(path.join(__dirname, 'public', 'index.html'));

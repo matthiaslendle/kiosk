@@ -7,9 +7,9 @@
         {{ item }}
       </mat-option>
     </mat-autocomplete>
-    <button *ngIf="customerCtrl.value" mat-button (click)="clearButtonClick()" matSuffix mat-icon-button
+    <button *ngIf="customerCtrl.value" mat-icon-button (click)="clearButtonClick()" matSuffix 
       aria-label="clear">
-      <img src="../../../assets/close_black_24dp.svg" alt="close">
+    <img src="assets/close_black_24dp.svg" alt="close">
     </button>
     <mat-hint *ngIf="selected$ | async">{{(selected$ | async).details}}</mat-hint>
   </mat-form-field>

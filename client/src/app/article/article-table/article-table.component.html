@@ -4,7 +4,7 @@
   <mat-label>Filter</mat-label>
   <input matInput [formControl]="filter" />
   <button *ngIf="filter.value" matSuffix mat-icon-button aria-label="Clear" (click)="filter.setValue('')">
-    <img src="../../../assets/close_black_24dp.svg" alt="close">
+    <img src="assets/close_black_24dp.svg" alt="close">
   </button>
 </mat-form-field>
 
@@ -40,7 +40,7 @@
     <th mat-header-cell *matHeaderCellDef>Bearbeiten</th>
     <td mat-cell *matCellDef="let element">
       <button mat-icon-button color="secondary" (click)="element.edit()">
-        <img src="../../../assets/edit_black_24dp.svg" alt="close">
+        <img src="assets/edit_black_24dp.svg" alt="close">
       </button>
     </td>
   </ng-container>
