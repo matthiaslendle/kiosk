@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Article } from 'src/app/models/Article';
 
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { CartService } from 'src/app/shared/cart.service';
 import { ArticleService } from 'src/app/shared/article.service';

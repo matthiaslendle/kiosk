@@ -72,7 +72,7 @@ export class ApiService {
   addTransaction(
     customerId: string,
     cart: CartItem[],
-    deposit: number = 0
+    deposit = 0
   ): Observable<Transaction> {
     return this.http.post<Transaction>(
       this.apiUrl + '/action',
@@ -86,11 +86,13 @@ export class ApiService {
     );
   }
 
-  export(): Observable<any> {
-    return this.http.get(this.apiUrl + '/excel/export')
+  export(): Observable<void> {
+    return this.http.get<void>(this.apiUrl + '/excel/export')
   }
 
-  import(): Observable<any> {
-    return this.http.get(this.apiUrl + '/excel/import')
+  import(): Observable<{ imported: { customers: number; articles: number } }> {
+    return this.http.get<{ imported: { customers: number; articles: number } }>(
+      this.apiUrl + '/excel/import'
+    )
   }
 }

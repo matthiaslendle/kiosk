@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewArticleDialogComponent } from '../new-article-dialog/new-article-dialog.component';
 import { ArticleService } from 'src/app/shared/article.service';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';

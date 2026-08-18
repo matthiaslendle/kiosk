@@ -1,7 +1,5 @@
-import { CurrencyPipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CustomerService } from 'src/app/shared/customer.service';
 
 @Component({
     selector: 'app-edit-customer-dialog',

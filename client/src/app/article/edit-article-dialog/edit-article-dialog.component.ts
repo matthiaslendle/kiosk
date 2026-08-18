@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Article } from 'src/app/models/Article';
-import { NewArticleDialogComponent } from '../new-article-dialog/new-article-dialog.component';
 
 @Component({
     selector: 'app-edit-article-dialog',

@@ -1,7 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { CartItem } from 'src/app/models/CartItem';
-
+import { Component } from '@angular/core';
 import { CartService } from '../../shared/cart.service';
 
 @Component({
@@ -19,7 +16,7 @@ export class CartComponent {
   cart$ = this.cartService.cart$;
   cartSum$ = this.cartService.cartSum$;
 
-  onQuantityChange(item: CartItem) {
-    // this.changeQuantity.emit(item);
+  onQuantityChange() {
+    throw "Unimplimented";
   }
 }

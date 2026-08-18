@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { last } from 'rxjs/operators';
 
 @Component({
     selector: 'app-new-customer-dialog',

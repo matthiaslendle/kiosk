@@ -24,8 +24,8 @@ export class ImportExportComponent implements OnInit {
 
   export() {
     this.apiService.export().subscribe(
-      ({ success }) => this.snackBar.open('erfolgreich Exportiert')._dismissAfter(2000),
-      (error) => this.snackBar.open('Export fehlgeschlagen')._dismissAfter(2000)
+      () => this.snackBar.open('erfolgreich Exportiert')._dismissAfter(2000),
+      () => this.snackBar.open('Export fehlgeschlagen')._dismissAfter(2000)
     );
   }
 
@@ -34,7 +34,7 @@ export class ImportExportComponent implements OnInit {
       this.snackBar.open(`${imported.customers} Teilnehmer und ${imported.articles} Artikel importiert.`)._dismissAfter(2000)
       this.customerService.fetchCustomers();
       this.articleService.fetchArticles();
-    }, (error) => {
+    }, () => {
       this.snackBar.open('Import fehlgeschlagen!')._dismissAfter(2000)
     })
   }
