@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { Customer } from '../../models/Customer';
 import { CustomerService } from 'src/app/shared/customer.service';
@@ -15,7 +15,7 @@ export class CustomerPickerComponent implements OnInit{
 
   customers$ = this.customerService.customers$;
   selected$ = this.customerService.selectedCustomer$;
-  customerCtrl = new FormControl();
+  customerCtrl = new UntypedFormControl();
   filteredOptions: Observable<string[]>;
 
   @Input() clearEvent: Observable<void>;

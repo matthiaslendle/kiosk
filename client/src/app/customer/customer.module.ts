@@ -13,11 +13,6 @@ import { NewCustomerDialogComponent } from './new-customer-dialog/new-customer-d
     DepositDialogComponent,
     CustomerDetailDialogComponent,
   ],
-  imports: [CommonModule, SharedModule],
-  entryComponents: [
-    NewCustomerDialogComponent,
-    DepositDialogComponent,
-    CustomerDetailDialogComponent,
-  ],
+  imports: [CommonModule, SharedModule]
 })
 export class CustomerModule { }

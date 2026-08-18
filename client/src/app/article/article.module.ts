@@ -7,7 +7,6 @@ import { EditArticleDialogComponent } from './edit-article-dialog/edit-article-d
 
 @NgModule({
   declarations: [ArticleTableComponent, NewArticleDialogComponent, EditArticleDialogComponent],
-  imports: [CommonModule, SharedModule],
-  entryComponents: [NewArticleDialogComponent],
+  imports: [CommonModule, SharedModule]
 })
 export class ArticleModule { }

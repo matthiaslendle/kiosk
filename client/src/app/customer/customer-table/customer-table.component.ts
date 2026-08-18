@@ -11,7 +11,7 @@ import { CustomerService } from 'src/app/shared/customer.service';
 import { Transaction } from 'src/app/models/Transaction';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { EditCustomerDialogComponent } from 'src/app/customer/edit-customer-dialog/edit-customer-dialog.component';
 
 interface TableDataModel {
@@ -36,7 +36,7 @@ export class CustomerTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  filter = new FormControl('');
+  filter = new UntypedFormControl('');
 
   constructor(
     private dialog: MatDialog,

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { EditArticleDialogComponent } from '../edit-article-dialog/edit-article-dialog.component';
 import { Article } from 'src/app/models/Article';
 
@@ -35,7 +35,7 @@ export class ArticleTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  filter = new FormControl('');
+  filter = new UntypedFormControl('');
 
   constructor(
     private articleService: ArticleService, private dialog: MatDialog
