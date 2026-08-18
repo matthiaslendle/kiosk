@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,20 +16,13 @@ import { EditCustomerDialogComponent } from './customer/edit-customer-dialog/edi
 
 registerLocaleData(localeDe);
 
-@NgModule({
-  declarations: [AppComponent, ImportExportComponent, EditCustomerDialogComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    CustomerModule,
-    ArticleModule,
-    CounterModule,
-    MaterialModule,
-    HttpClientModule,
-  ],
-  exports: [],
-  providers: [],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent, ImportExportComponent, EditCustomerDialogComponent],
+    exports: [],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        CustomerModule,
+        ArticleModule,
+        CounterModule,
+        MaterialModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
