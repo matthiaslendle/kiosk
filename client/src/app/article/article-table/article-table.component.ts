@@ -24,9 +24,10 @@ interface TableDataModel {
 
 
 @Component({
-  selector: 'app-article-table',
-  templateUrl: './article-table.component.html',
-  styleUrls: ['./article-table.component.scss'],
+    selector: 'app-article-table',
+    templateUrl: './article-table.component.html',
+    styleUrls: ['./article-table.component.scss'],
+    standalone: false
 })
 export class ArticleTableComponent implements OnInit {
   displayedCols = ['name', 'category', 'price', 'toggle', 'edit'];

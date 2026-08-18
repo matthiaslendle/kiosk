@@ -4,9 +4,10 @@ import { Article } from 'src/app/models/Article';
 import { NewArticleDialogComponent } from '../new-article-dialog/new-article-dialog.component';
 
 @Component({
-  selector: 'app-edit-article-dialog',
-  templateUrl: './edit-article-dialog.component.html',
-  styleUrls: ['./edit-article-dialog.component.scss']
+    selector: 'app-edit-article-dialog',
+    templateUrl: './edit-article-dialog.component.html',
+    styleUrls: ['./edit-article-dialog.component.scss'],
+    standalone: false
 })
 export class EditArticleDialogComponent implements OnInit {
 

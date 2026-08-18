@@ -5,9 +5,10 @@ import { CartItem } from 'src/app/models/CartItem';
 import { CartService } from '../../shared/cart.service';
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss'],
+    selector: 'app-cart',
+    templateUrl: './cart.component.html',
+    styleUrls: ['./cart.component.scss'],
+    standalone: false
 })
 export class CartComponent {
   // @Input() cart: CartItem[];

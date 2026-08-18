@@ -5,9 +5,10 @@ import { Transaction } from 'src/app/models/Transaction';
 import { CurrencyPipe } from 'src/app/shared/currency.pipe';
 
 @Component({
-  selector: 'app-customer-detail-dialog',
-  templateUrl: './customer-detail-dialog.component.html',
-  styleUrls: ['./customer-detail-dialog.component.scss'],
+    selector: 'app-customer-detail-dialog',
+    templateUrl: './customer-detail-dialog.component.html',
+    styleUrls: ['./customer-detail-dialog.component.scss'],
+    standalone: false
 })
 export class CustomerDetailDialogComponent implements OnInit {
   displayedCols = ['time', 'deposit', 'cart', 'sum'];

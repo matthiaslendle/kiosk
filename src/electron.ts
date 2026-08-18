@@ -16,7 +16,7 @@ function createWindow(): void {
 
   mainWindow.setMenu(null);
 
-  mainWindow.loadFile(path.join(__dirname, 'public', 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, 'public', 'browser', 'index.html'));
 
   mainWindow.on('closed', () => {
     mainWindow = null;

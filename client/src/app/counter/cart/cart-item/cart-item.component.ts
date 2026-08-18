@@ -6,9 +6,10 @@ import { CartService } from 'src/app/shared/cart.service';
 import { CurrencyPipe } from 'src/app/shared/currency.pipe';
 
 @Component({
-  selector: 'app-cart-item',
-  templateUrl: './cart-item.component.html',
-  styleUrls: ['./cart-item.component.scss'],
+    selector: 'app-cart-item',
+    templateUrl: './cart-item.component.html',
+    styleUrls: ['./cart-item.component.scss'],
+    standalone: false
 })
 export class CartItemComponent {
   @Input() item: CartItem;

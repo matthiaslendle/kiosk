@@ -7,9 +7,10 @@ import { map, startWith, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-customer-picker',
-  styleUrls: ['./customer-picker.component.scss'],
-  templateUrl: './customer-picker.component.html',
+    selector: 'app-customer-picker',
+    styleUrls: ['./customer-picker.component.scss'],
+    templateUrl: './customer-picker.component.html',
+    standalone: false
 })
 export class CustomerPickerComponent implements OnInit{
 

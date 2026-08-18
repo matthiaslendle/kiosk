@@ -25,9 +25,10 @@ interface TableDataModel {
 }
 
 @Component({
-  selector: 'app-customer-table',
-  templateUrl: './customer-table.component.html',
-  styleUrls: ['./customer-table.component.scss'],
+    selector: 'app-customer-table',
+    templateUrl: './customer-table.component.html',
+    styleUrls: ['./customer-table.component.scss'],
+    standalone: false
 })
 export class CustomerTableComponent implements OnInit {
   displayedCols = ['firstname', 'lastname', 'group', 'credit', 'deposit', 'details', 'edit'];

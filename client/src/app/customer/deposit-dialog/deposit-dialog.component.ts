@@ -3,9 +3,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Customer } from 'src/app/models/Customer';
 
 @Component({
-  selector: 'app-deposit-dialog',
-  templateUrl: './deposit-dialog.component.html',
-  styleUrls: ['./deposit-dialog.component.scss']
+    selector: 'app-deposit-dialog',
+    templateUrl: './deposit-dialog.component.html',
+    styleUrls: ['./deposit-dialog.component.scss'],
+    standalone: false
 })
 export class DepositDialogComponent implements OnInit {
   amount: number;

@@ -9,9 +9,10 @@ import { ArticleService } from '../shared/article.service';
 import { combineLatest, Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-counter',
-  templateUrl: './counter.component.html',
-  styleUrls: ['./counter.component.scss'],
+    selector: 'app-counter',
+    templateUrl: './counter.component.html',
+    styleUrls: ['./counter.component.scss'],
+    standalone: false
 })
 export class CounterComponent {
   articles$ = this.articleService.articles$;

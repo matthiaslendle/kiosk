@@ -8,9 +8,10 @@ import { ArticleService } from 'src/app/shared/article.service';
 import { CurrencyPipe } from 'src/app/shared/currency.pipe';
 
 @Component({
-  selector: 'app-shelf',
-  templateUrl: './shelf.component.html',
-  styleUrls: ['./shelf.component.scss'],
+    selector: 'app-shelf',
+    templateUrl: './shelf.component.html',
+    styleUrls: ['./shelf.component.scss'],
+    standalone: false
 })
 export class ShelfComponent {
   constructor(

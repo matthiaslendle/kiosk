@@ -3,9 +3,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { last } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-new-customer-dialog',
-  styleUrls: ['new-customer-dialog.component.scss'],
-  templateUrl: './new-customer-dialog.component.html',
+    selector: 'app-new-customer-dialog',
+    styleUrls: ['new-customer-dialog.component.scss'],
+    templateUrl: './new-customer-dialog.component.html',
+    standalone: false
 })
 export class NewCustomerDialogComponent implements OnInit {
   data: {
