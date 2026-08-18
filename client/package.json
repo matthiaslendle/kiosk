@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node --openssl-legacy-provider ./node_modules/@angular/cli/bin/ng serve",
-    "build": "node --openssl-legacy-provider ./node_modules/@angular/cli/bin/ng build && mv dist/kiosk ../dist/public",
+    "build": "node --openssl-legacy-provider ./node_modules/@angular/cli/bin/ng build && rm -rf ../dist/public && mv dist/kiosk ../dist/public",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -12,12 +12,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.4.0",
-    "@angular/cdk": "~12.0.5",
+    "@angular/cdk": "~13.3.9",
     "@angular/common": "~13.4.0",
     "@angular/compiler": "~13.4.0",
     "@angular/core": "~13.4.0",
     "@angular/forms": "~13.4.0",
-    "@angular/material": "~12.0.5",
+    "@angular/material": "~13.3.9",
     "@angular/platform-browser": "~13.4.0",
     "@angular/platform-browser-dynamic": "~13.4.0",
     "@angular/router": "~13.4.0",
