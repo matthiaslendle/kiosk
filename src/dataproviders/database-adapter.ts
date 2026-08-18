@@ -42,8 +42,8 @@ export class DatabaseAdapter {
     article.name = name;
     article.category = category;
     const index = this.db.getIndex('/articles', article.id);
-    this.db.push(`/articles[${index}]`, article, true)
-    return article
+    this.db.push(`/articles[${index}]`, article, true);
+    return article;
   }
 
   // Customers
@@ -73,7 +73,7 @@ export class DatabaseAdapter {
     customer.group = group;
 
     const index = this.db.getIndex('/customers', id);
-    this.db.push(`/customers[${index}]`, customer, true)
+    this.db.push(`/customers[${index}]`, customer, true);
     return customer;
   }
 

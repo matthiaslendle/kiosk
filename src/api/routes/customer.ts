@@ -33,7 +33,7 @@ export const customerRouter = (db: DatabaseAdapter) => {
     const id = parseInt(req.params.id, 10);
     const customer = db.updateCustomer(id, firstname, lastname, group, details);
     res.json(customer);
-  }))
+  }));
 
   return router;
 };
