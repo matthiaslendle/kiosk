@@ -1,10 +1,14 @@
 <div class="counter">
-  <app-customer-picker [clearEvent]="clearEventSubjet.asObservable()"></app-customer-picker>
+  <app-customer-picker
+    [clearEvent]="clearEventSubjet.asObservable()"
+  ></app-customer-picker>
 
-  <div *ngIf="selectedCustomer">
+  @if (selectedCustomer) {
+  <div>
     <app-keyvalues [sum]="cartSum$ | async" [credit]="credit$ | async">
     </app-keyvalues>
   </div>
+  }
 
   <div class="shelf">
     <app-shelf></app-shelf>
@@ -12,7 +16,11 @@
 
   <app-cart></app-cart>
 
-  <button mat-raised-button [color]="(overdrawn$ | async) ? 'warn' : 'primary'" (click)="submit()">
-    {{(overdrawn$ | async) ? 'Überzogen' : 'Buchen'}}
+  <button
+    mat-raised-button
+    [color]="(overdrawn$ | async) ? 'warn' : 'primary'"
+    (click)="submit()"
+  >
+    {{ (overdrawn$ | async) ? 'Überzogen' : 'Buchen' }}
   </button>
 </div>

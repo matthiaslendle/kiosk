@@ -1,11 +1,15 @@
 <mat-card class="shelf">
-  <div *ngFor="let category of byCategory$ | async" class="category">
+  @for (category of byCategory$ | async; track category) {
+  <div class="category">
     <h2 class="mat-h2">{{ category.title }}</h2>
-    <div *ngFor="let article of category.articles" id="{{ article.id }}">
+    @for (article of category.articles; track article) {
+    <div id="{{ article.id }}">
       <button mat-raised-button color="primary" (click)="addClick(article)">
-        <span class="name">{{article.name}}</span>
-        <span class="mat-body">{{article.price | currency}}</span>
+        <span class="name">{{ article.name }}</span>
+        <span class="mat-body">{{ article.price | currency }}</span>
       </button>
     </div>
+    }
   </div>
+  }
 </mat-card>

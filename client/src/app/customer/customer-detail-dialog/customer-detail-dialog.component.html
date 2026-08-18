@@ -1,25 +1,26 @@
-<h1 mat-dialog-title>{{ data.firstname + ' ' + data.lastname}}</h1>
+<h1 mat-dialog-title>{{ data.firstname + ' ' + data.lastname }}</h1>
 <div mat-dialog-content>
+  <p>Zelt {{ data.group }}</p>
 
-  <p>Zelt {{data.group}}</p>
-
-  <div *ngIf="details && details !== ''">
+  @if (details && details !== '') {
+  <div>
     <h3>Details</h3>
-    <p style="white-space: pre">{{details}} </p>
+    <p style="white-space: pre">{{ details }}</p>
   </div>
+  }
   <h3>Transaktionen</h3>
   <table mat-table [dataSource]="data.transactions">
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef>Zeit</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.time | date: 'short':'null':'de' }}
+        {{ element.time | date : 'short' : 'null' : 'de' }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="deposit">
       <th mat-header-cell *matHeaderCellDef>Einzahlung</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.deposit | currency  }}
+        {{ element.deposit | currency }}
       </td>
     </ng-container>
 
@@ -33,7 +34,7 @@
     <ng-container matColumnDef="sum">
       <th mat-header-cell *matHeaderCellDef>Summe</th>
       <td mat-cell *matCellDef="let element">
-        {{transactionSum(element) | currency}}
+        {{ transactionSum(element) | currency }}
       </td>
     </ng-container>
 

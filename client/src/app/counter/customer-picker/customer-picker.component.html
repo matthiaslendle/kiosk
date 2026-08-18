@@ -1,16 +1,31 @@
 <div class="picker">
   <mat-form-field>
-    <input type="text" matInput placeholder="Teilnehmer" aria-label="Teilnehmer" [matAutocomplete]="auto"
-      [formControl]="customerCtrl" />
+    <input
+      type="text"
+      matInput
+      placeholder="Teilnehmer"
+      aria-label="Teilnehmer"
+      [matAutocomplete]="auto"
+      [formControl]="customerCtrl"
+    />
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let item of filteredOptions | async" [value]="item">
+      @for (item of filteredOptions | async; track item) {
+      <mat-option [value]="item">
         {{ item }}
       </mat-option>
+      }
     </mat-autocomplete>
-    <button *ngIf="customerCtrl.value" mat-icon-button (click)="clearButtonClick()" matSuffix 
-      aria-label="clear">
-    <img src="assets/close_black_24dp.svg" alt="close">
+    @if (customerCtrl.value) {
+    <button
+      mat-icon-button
+      (click)="clearButtonClick()"
+      matSuffix
+      aria-label="clear"
+    >
+      <img src="assets/close_black_24dp.svg" alt="close" />
     </button>
-    <mat-hint *ngIf="selected$ | async">{{(selected$ | async).details}}</mat-hint>
+    } @if (selected$ | async) {
+    <mat-hint>{{ (selected$ | async).details }}</mat-hint>
+    }
   </mat-form-field>
 </div>
