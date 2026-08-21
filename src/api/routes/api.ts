@@ -12,7 +12,7 @@ export const apiRouter = () => {
 
   const router = express.Router();
 
-  router.get('/', (req, res) => {
+  router.get('/', (_req, res) => {
     res.json({ status: 'API is Working' });
   });
 

@@ -1,7 +1,6 @@
 import xlsx from 'node-xlsx';
 import { promises as fs } from 'fs';
 import { DatabaseAdapter } from './database-adapter';
-import { Article } from '../models/article';
 
 export class ExcelAdapter {
   private dbAdapter: DatabaseAdapter;
@@ -75,9 +74,9 @@ export class ExcelAdapter {
     });
 
     if (articles) {
-      articles.forEach(({ name, price, category, disabled }) => {
-        this.dbAdapter.addArticle({ name, price, category, disabled } as Article);
-      });
+      for (const { name, price, category, disabled } of articles) {
+        await this.dbAdapter.addArticle({ name, price, category, disabled });
+      }
     }
 
     return { imported: { customers: customers?.length || 0, articles: articles?.length || 0 } };

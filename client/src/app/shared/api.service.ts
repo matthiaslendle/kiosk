@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { Article } from '../models/Article';
 import { CartItem } from '../models/CartItem';
@@ -15,17 +14,17 @@ export class ApiService {
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  private apiUrl = 'http://localhost:9000/api';
+  private readonly apiUrl = 'http://localhost:9000/api';
 
-  getAllCustomers(): Observable<Customer[]> {
+  getAllCustomers() {
     return this.http.get<Customer[]>(this.apiUrl + '/customer');
   }
 
-  getCustomer(id: number): Observable<Customer> {
+  getCustomer(id: string) {
     return this.http.get<Customer>(this.apiUrl + '/customer/' + id);
   }
 
-  addCustomer(firstname: string, lastname: string, group: string, details: string, credit: number): Observable<Customer> {
+  addCustomer(firstname: string, lastname: string, group: string, details: string, credit: number) {
     return this.http.post<Customer>(
       this.apiUrl + '/customer',
       { firstname, lastname, group, details, credit },
@@ -33,15 +32,15 @@ export class ApiService {
     );
   }
 
-  updateCustomer(id: number, firstname: string, lastname: string, details: string, group: string) {
+  updateCustomer(customer: Omit<Customer, 'transactions'>) {
     return this.http.patch<Customer>(
-      this.apiUrl + '/customer/' + id,
-      { firstname, lastname, details, group },
+      this.apiUrl + '/customer/' + customer.id,
+      { firstname: customer.firstname, lastname: customer.lastname, details: customer.details, group: customer.group },
       { headers: this.headers }
-    )
+    );
   }
 
-  addArticle(name: string, category: string, price: number): Observable<Article> {
+  addArticle(name: string, category: string, price: number) {
     return this.http.post<Article>(
       this.apiUrl + '/article',
       { name, price, category },
@@ -49,31 +48,32 @@ export class ApiService {
     );
   }
 
-  getAllArticles(): Observable<Article[]> {
+  getAllArticles() {
     return this.http.get<Article[]>(this.apiUrl + '/article');
   }
 
-  updateArticle(id: number, name: string, category: string): Observable<Article> {
-    return this.http.patch<Article>(this.apiUrl + '/article/' + id, { name, category }, {
-      headers: this.headers,
-    });
+  updateArticle(id: string, name: string, category: string) {
+    return this.http.patch<Article>(
+      this.apiUrl + '/article/' + id,
+      { name, category },
+      { headers: this.headers, }
+    );
   }
 
-  toggleArticle(id: number, disabled: boolean): Observable<Article> {
-
-    const response = this.http.post<Article>(this.apiUrl + '/article/disable/', { id, disabled }, { headers: this.headers })
+  toggleArticle(id: string, disabled: boolean) {
+    const response = this.http.post<Article>(
+      this.apiUrl + '/article/toggle/' + id,
+      { disabled },
+      { headers: this.headers }
+    );
     return response
   }
 
-  getAllTransactions(): Observable<Transaction[]> {
+  getAllTransactions() {
     return this.http.get<Transaction[]>(this.apiUrl + '/action');
   }
 
-  addTransaction(
-    customerId: number,
-    cart: CartItem[],
-    deposit = 0
-  ): Observable<Transaction> {
+  addTransaction(customerId: string, cart: CartItem[], deposit = 0) {
     return this.http.post<Transaction>(
       this.apiUrl + '/action',
       {
@@ -86,11 +86,11 @@ export class ApiService {
     );
   }
 
-  export(): Observable<void> {
-    return this.http.get<void>(this.apiUrl + '/excel/export')
+  export() {
+    return this.http.get<{ success: boolean }>(this.apiUrl + '/excel/export')
   }
 
-  import(): Observable<{ imported: { customers: number; articles: number } }> {
+  import() {
     return this.http.get<{ imported: { customers: number; articles: number } }>(
       this.apiUrl + '/excel/import'
     )

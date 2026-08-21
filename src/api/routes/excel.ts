@@ -8,12 +8,12 @@ export const excelRouter = (db: DatabaseAdapter) => {
   const router = express.Router();
   const excelAdapter = new ExcelAdapter(db);
 
-  router.get('/export', catchAsync(async (_req: Request, res: Response) => {
+  router.get('/export', catchAsync(async (_: Request, res: Response) => {
     const result = await excelAdapter.save();
     res.send(result);
   }));
 
-  router.get('/import', catchAsync(async (_req: Request, res: Response) => {
+  router.get('/import', catchAsync(async (_: Request, res: Response) => {
     const result = await excelAdapter.load();
     res.send(result);
   }));

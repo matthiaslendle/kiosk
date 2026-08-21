@@ -7,7 +7,7 @@ export const actionRouter = (db: DatabaseAdapter) => {
   const router = express.Router();
 
   // get all
-  router.get('/', catchAsync(async (req: Request, res: Response) => {
+  router.get('/', catchAsync(async (_: Request, res: Response) => {
     const actions = await db.getTransactions();
     res.json(actions);
   }));

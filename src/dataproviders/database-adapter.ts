@@ -12,33 +12,61 @@ export class DatabaseAdapter {
   }
 
   // Articles
-  getArticles(): Promise<Article[]> {
-    return this.getOrElse('/articles', []);
+  getArticles() {
+    return this.getOrElse('/articles', []) as Promise<Article[]>;
   }
 
-  async addArticle(article: Article): Promise<Article> {
+  async addArticle(article: Omit<Article, 'id'>) {
     const id = await this.getOrElse('/nextArticleID', 0);
-    article.id = id;
-    article.disabled = article.disabled || false;
-    await this.db.push('/articles[]', article, true);
+    const newArticle: Article = {
+      ...article,
+      id: id.toString(),
+      disabled: article.disabled || false
+    };
+
+    await this.db.push('/articles[]', newArticle, true);
     await this.db.push('/nextArticleID', id + 1);
-    return article;
+    return newArticle;
   }
 
-  async getArticleByID(id: number): Promise<Article> {
-    return (await this.getArticles()).filter(a => a.id === id)[0];
+  async getArticleByID(id: string) {
+    console.log('looking for:', id, typeof id);
+    const articles = await this.db.filter('/articles', (article: Article) => {
+      console.log('checking article:', article);
+      console.log('article.id:', article.id, typeof article.id);
+      console.log('match:', article.id === id);
+      return article.id === id
+    });
+    console.log('FILTER RESULT:', articles);
+
+    if (!articles?.length) {
+      return undefined;
+    }
+    if (articles.length > 1) {
+      throw new Error(`Multiple articles found with ID ${id} check database integrity`);
+    }
+    return articles[0] as Article;
   }
 
-  async disableArticle(id: number, disabled: boolean): Promise<Article> {
+  async toggleArticle(id: string, disabled: boolean) {
     const article = await this.getArticleByID(id);
+    console.log('article:', article);
+    if (!article) {
+      return undefined
+    }
     article.disabled = disabled;
+    console.log('start toggle article:', article);
     const index = await this.db.getIndex('/articles', article.id);
     await this.db.push(`/articles[${index}]`, article, true);
+    console.log('end toggle article:', article);
     return article;
   }
 
-  async updateArticle(id: number, name: string, category: string): Promise<Article> {
+  async updateArticle(id: string, name: string, category: string) {
     const article = await this.getArticleByID(id);
+    if (!article) {
+      return undefined;
+    }
     article.name = name;
     article.category = category;
     const index = await this.db.getIndex('/articles', article.id);
@@ -58,7 +86,7 @@ export class DatabaseAdapter {
     const newCustomer: Customer = {
       ...customer,
       transactions: [],
-      id,
+      id: id.toString(),
     };
 
     await this.db.push('/customers[]', newCustomer, true);
@@ -70,12 +98,22 @@ export class DatabaseAdapter {
   }
 
 
-  async getCustomerByID(id: number): Promise<Customer> {
-    return (await this.getCustomers()).filter(c => c.id === id)[0];
+  async getCustomerByID(id: string): Promise<Customer | undefined> {
+    const customers = await this.db.filter('/customers', (customer: Customer) => customer.id === id);
+    if (!customers?.length) {
+      return undefined;
+    }
+    if (customers.length > 1) {
+      throw new Error(`Multiple customers found with ID ${id} check database integrity`);
+    }
+    return customers[0] as Customer;
   }
 
-  async updateCustomer(id: number, firstname: string, lastname: string, group: string, details: string): Promise<Customer> {
+  async updateCustomer(id: string, firstname: string, lastname: string, group: string, details: string): Promise<Customer | undefined> {
     const customer = await this.getCustomerByID(id);
+    if (!customer) {
+      return undefined;
+    }
     customer.firstname = firstname;
     customer.lastname = lastname;
     customer.details = details;
@@ -91,9 +129,9 @@ export class DatabaseAdapter {
     return (await this.getCustomers()).flatMap(c => c.transactions);
   }
 
-  async addTransaction(customerId: number, cart: CartItem[], deposit: number, time: Date): Promise<Transaction> {
+  async addTransaction(customerId: string, cart: CartItem[], deposit: number, time: Date): Promise<Transaction> {
     const id = await this.getOrElse('/nextTransactionID', 0);
-    const action: Transaction = { id, cart, deposit, time: time.valueOf() };
+    const action: Transaction = { id: id.toString(), cart, deposit, time: time.valueOf() };
 
     const customers = await this.getCustomers();
     const customer = customers.filter(c => c.id === customerId)[0];

@@ -1,7 +1,7 @@
 import { Article } from './article';
 
 export interface Transaction {
-  id: number;
+  id: string;
   cart: CartItem[];
   deposit: number;
   time: number;

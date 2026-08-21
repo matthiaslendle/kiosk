@@ -32,14 +32,14 @@ export class CustomerService {
       })
   }
 
-  addTransaction(customerId: number, cart: CartItem[], deposit: number) {
+  addTransaction(customerId: string, cart: CartItem[], deposit: number) {
     this.apiService.addTransaction(customerId, cart, deposit)
       .subscribe(transaction => {
         const customers = this.customersSubject.getValue();
         const customer = customers.find(c => c.id === customerId);
         if (!customer) {
-            console.error("invalid customerID");
-            return;
+          console.error("invalid customerID");
+          return;
         };
         customer.transactions.push(transaction);
         this.customersSubject.next(customers);
@@ -54,13 +54,13 @@ export class CustomerService {
     this.selectedSubject.next(null);
   }
 
-  editCustomer(id: number, firstname: string, lastname: string, details: string, group: string) {
-    this.apiService.updateCustomer(id, firstname, lastname, details, group)
+  editCustomer(customer: Omit<Customer, 'transactions'>) {
+    this.apiService.updateCustomer(customer)
       .subscribe(c => {
         const oldCustomers = this.customersSubject.getValue();
-        const newCustomers = [...oldCustomers];
-
-        newCustomers[c.id] = c;
+        const newCustomers = oldCustomers.map(cIt =>
+          cIt.id === c.id ? c : cIt
+        );
         this.customersSubject.next(newCustomers);
       })
   }

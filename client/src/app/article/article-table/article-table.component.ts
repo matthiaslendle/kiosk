@@ -52,7 +52,7 @@ export class ArticleTableComponent implements OnInit {
           price: article.price,
           disabled: article.disabled,
           toggle: () => this.articleService.toggle(article),
-          edit: () => this.openEditDialog({ ...article })
+          edit: () => this.openEditDialog(article)
         }))
       )
     ).subscribe(data => {
@@ -69,11 +69,11 @@ export class ArticleTableComponent implements OnInit {
       .open(NewArticleDialogComponent)
       .afterClosed()
       .subscribe((data?: { name: string, category: string, price: string }) => {
-        if (data !== undefined) {
-          const cents = Math.floor(parseFloat(data.price.replace(",", ".")) * 100)
-          this.articleService.addArticle(data.name, data.category, Math.floor(cents))
+          if (data !== undefined) {
+            const cents = Math.floor(parseFloat(data.price.replace(",", ".")) * 100)
+            this.articleService.addArticle(data.name, data.category, Math.floor(cents))
+          }
         }
-      }
       );
   }
 
@@ -83,7 +83,7 @@ export class ArticleTableComponent implements OnInit {
         data: article,
       })
       .afterClosed()
-      .subscribe((data?: { id: number, name: string, category: string }) => {
+      .subscribe((data?: { id: string, name: string, category: string }) => {
         if (data !== undefined)
           this.articleService.editArticle(data.id, data.name, data.category)
       })

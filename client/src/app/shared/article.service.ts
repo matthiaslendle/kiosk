@@ -32,21 +32,23 @@ export class ArticleService {
     this.apiService.toggleArticle(article.id, !article.disabled)
       .subscribe(a => {
         const oldArticles = this.articlesSubject.getValue();
-
-        const newArticles = [...oldArticles];
-
-        newArticles[a.id] = a
-
+        console.log('toggle article', a);
+        console.log('oldArticles', oldArticles);
+        const newArticles = oldArticles.map(aIt =>
+          aIt.id === a.id ? a : aIt
+        );
+        console.log('newArticles', newArticles);
         this.articlesSubject.next(newArticles);
       });
   }
 
-  editArticle(id: number, name: string, category: string) {
+  editArticle(id: string, name: string, category: string) {
     this.apiService.updateArticle(id, name, category)
       .subscribe(a => {
         const oldArticles = this.articlesSubject.getValue();
-        const newArticles = [...oldArticles];
-        newArticles[a.id] = a;
+        const newArticles = oldArticles.map(aIt =>
+          aIt.id === a.id ? a : aIt
+        );
         this.articlesSubject.next(newArticles);
       })
   }

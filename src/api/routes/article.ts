@@ -16,20 +16,37 @@ export const articleRouter = (db: DatabaseAdapter) => {
     res.json(article);
   }));
 
-  router.get('/:id', catchAsync(async (req: Request<{ id: string }>, res: Response) => {
-    const id = parseInt(req.params.id, 10);
-    const article = await db.getArticleByID(id);
+  router.get('/:id', catchAsync(async (req: Request, res: Response) => {
+    if (typeof req.params.id !== 'string') {
+      return res.status(400).json({ error: 'Invalid article ID' });
+    }
+    const article = await db.getArticleByID(req.params.id);
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
     res.json(article);
   }));
 
-  router.post('/disable', catchAsync(async (req: Request, res: Response) => {
-    const article = await db.disableArticle(req.body.id, req.body.disabled);
+  router.post('/toggle/:id', catchAsync(async (req: Request, res: Response) => {
+    if (typeof req.params.id !== 'string') {
+      return res.status(400).json({ error: 'Invalid article ID' });
+    }
+    const article = await db.toggleArticle(req.params.id, req.body.disabled);
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
     res.json(article);
   }));
 
-  router.patch('/:id', catchAsync(async (req: Request<{ id: string }>, res: Response) => {
+  router.patch('/:id', catchAsync(async (req: Request, res: Response) => {
+    if (typeof req.params.id !== 'string') {
+      return res.status(400).json({ error: 'Invalid article ID' });
+    }
     const { name, category } = req.body;
-    const article = await db.updateArticle(parseInt(req.params.id, 10), name, category);
+    const article = await db.updateArticle(req.params.id, name, category);
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
     res.json(article);
   }));
 

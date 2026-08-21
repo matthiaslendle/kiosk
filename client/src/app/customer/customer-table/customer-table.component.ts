@@ -101,9 +101,9 @@ export class CustomerTableComponent implements OnInit {
         data: { ...customer, credit: this.customerService.calculateCredit(customer) }
       })
       .afterClosed()
-      .subscribe((data: { id: number, firstname: string, lastname: string, group: string, details: string }) => {
+      .subscribe((data: { id: string, firstname: string, lastname: string, group: string, details: string }) => {
         if (data !== undefined) {
-          this.customerService.editCustomer(data.id, data.firstname, data.lastname, data.details, data.group)
+          this.customerService.editCustomer(data)
         }
       })
   }
