@@ -15,12 +15,26 @@ import { EditCustomerDialogComponent } from './customer/edit-customer-dialog/edi
 
 registerLocaleData(localeDe);
 
-@NgModule({ declarations: [AppComponent, ImportExportComponent, EditCustomerDialogComponent],
+@NgModule({
+    declarations: [
+        AppComponent,
+        ImportExportComponent,
+        EditCustomerDialogComponent
+    ],
     exports: [],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
         AppRoutingModule,
         CustomerModule,
         ArticleModule,
         CounterModule,
-        MaterialModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
-export class AppModule { }
+        MaterialModule
+    ],
+    providers: [
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+})
+export class AppModule {}

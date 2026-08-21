@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewArticleDialogComponent } from '../new-article-dialog/new-article-dialog.component';
-import { ArticleService } from 'src/app/shared/article.service';
+import { ArticleService } from '../../shared/article.service';
 import { map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { EditArticleDialogComponent } from '../edit-article-dialog/edit-article-dialog.component';
-import { Article } from 'src/app/models/Article';
+import { Article } from '../../models/Article';
 
 interface TableDataModel {
   index: number;
@@ -23,19 +23,19 @@ interface TableDataModel {
 
 
 @Component({
-    selector: 'app-article-table',
-    templateUrl: './article-table.component.html',
-    styleUrls: ['./article-table.component.scss'],
-    standalone: false
+  selector: 'app-article-table',
+  templateUrl: './article-table.component.html',
+  styleUrls: ['./article-table.component.scss'],
+  standalone: false
 })
 export class ArticleTableComponent implements OnInit {
   displayedCols = ['name', 'category', 'price', 'toggle', 'edit'];
   tableData: MatTableDataSource<TableDataModel> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = new MatPaginator();
+  @ViewChild(MatSort, { static: true }) sort: MatSort = new MatSort();
 
-  filter = new UntypedFormControl('');
+  filter = new FormControl('');
 
   constructor(
     private articleService: ArticleService, private dialog: MatDialog
@@ -48,7 +48,7 @@ export class ArticleTableComponent implements OnInit {
           index,
           name: article.name,
           category: article.category,
-          id: article.id,
+          id: article.id.toString(),
           price: article.price,
           disabled: article.disabled,
           toggle: () => this.articleService.toggle(article),
@@ -57,18 +57,18 @@ export class ArticleTableComponent implements OnInit {
       )
     ).subscribe(data => {
       this.tableData.data = data;
-      this.tableData.paginator = this.paginator;
-      this.tableData.sort = this.sort;
     });
 
-    this.filter.valueChanges.subscribe(value => this.tableData.filter = value.trim().toLowerCase())
+    this.tableData.paginator = this.paginator;
+    this.tableData.sort = this.sort;
+    this.filter.valueChanges.subscribe(value => this.tableData.filter = value?.trim().toLowerCase() || '')
   }
 
   openNewDialog() {
     this.dialog
       .open(NewArticleDialogComponent)
       .afterClosed()
-      .subscribe((data: { name: string, category: string, price: string }) => {
+      .subscribe((data?: { name: string, category: string, price: string }) => {
         if (data !== undefined) {
           const cents = Math.floor(parseFloat(data.price.replace(",", ".")) * 100)
           this.articleService.addArticle(data.name, data.category, Math.floor(cents))
@@ -83,7 +83,7 @@ export class ArticleTableComponent implements OnInit {
         data: article,
       })
       .afterClosed()
-      .subscribe((data: { id: string, name: string, category: string }) => {
+      .subscribe((data?: { id: number, name: string, category: string }) => {
         if (data !== undefined)
           this.articleService.editArticle(data.id, data.name, data.category)
       })

@@ -1,15 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Customer } from 'src/app/models/Customer';
+import { Customer } from '../../models/Customer';
 
 @Component({
-    selector: 'app-deposit-dialog',
-    templateUrl: './deposit-dialog.component.html',
-    styleUrls: ['./deposit-dialog.component.scss'],
-    standalone: false
+  selector: 'app-deposit-dialog',
+  templateUrl: './deposit-dialog.component.html',
+  styleUrls: ['./deposit-dialog.component.scss'],
+  standalone: false
 })
 export class DepositDialogComponent implements OnInit {
-  amount: number;
+  amount?: number;
+
   constructor(
     public dialogRef: MatDialogRef<DepositDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Customer
@@ -19,5 +20,5 @@ export class DepositDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

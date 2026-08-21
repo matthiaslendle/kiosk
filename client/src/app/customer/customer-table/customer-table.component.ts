@@ -7,12 +7,12 @@ import { Customer } from '../../models/Customer';
 import { CustomerDetailDialogComponent } from '../customer-detail-dialog/customer-detail-dialog.component';
 import { DepositDialogComponent } from '../deposit-dialog/deposit-dialog.component';
 import { NewCustomerDialogComponent } from '../new-customer-dialog/new-customer-dialog.component';
-import { CustomerService } from 'src/app/shared/customer.service';
-import { Transaction } from 'src/app/models/Transaction';
+import { CustomerService } from '../../shared/customer.service';
+import { Transaction } from '../../models/Transaction';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { UntypedFormControl } from '@angular/forms';
-import { EditCustomerDialogComponent } from 'src/app/customer/edit-customer-dialog/edit-customer-dialog.component';
+import { FormControl } from '@angular/forms';
+import { EditCustomerDialogComponent } from '../../customer/edit-customer-dialog/edit-customer-dialog.component';
 
 interface TableDataModel {
   firstname: string;
@@ -25,19 +25,19 @@ interface TableDataModel {
 }
 
 @Component({
-    selector: 'app-customer-table',
-    templateUrl: './customer-table.component.html',
-    styleUrls: ['./customer-table.component.scss'],
-    standalone: false
+  selector: 'app-customer-table',
+  templateUrl: './customer-table.component.html',
+  styleUrls: ['./customer-table.component.scss'],
+  standalone: false
 })
 export class CustomerTableComponent implements OnInit {
   displayedCols = ['firstname', 'lastname', 'group', 'credit', 'deposit', 'details', 'edit'];
   tableData: MatTableDataSource<TableDataModel> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = new MatPaginator();
+  @ViewChild(MatSort, { static: true }) sort: MatSort = new MatSort();
 
-  filter = new UntypedFormControl('');
+  filter = new FormControl('');
 
   constructor(
     private dialog: MatDialog,
@@ -46,37 +46,23 @@ export class CustomerTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerService.customers$.pipe(
-      map(customers => customers.map(customer => ({
-        firstname: customer.firstname,
-        lastname: customer.lastname,
-        group: customer.group,
-        transactions: customer.transactions,
+      map((customers): TableDataModel[] => customers.map(customer => ({
+        ...customer,
         credit: this.customerService.calculateCredit(customer),
         deposit: () => this.openDeposit(customer),
-        details: () =>
-          this.showDetails(
-            customer.firstname,
-            customer.lastname,
-            customer.transactions,
-            customer.details,
-            customer.group
-          ),
-        edit: () => this.openEditDialog({ ...customer })
+        details: () => this.showDetails(customer),
+        edit: () => this.openEditDialog(customer)
       })))
-    ).subscribe(data => {
-      this.tableData.data = data;
-      this.tableData.paginator = this.paginator;
-      this.tableData.sort = this.sort;
-    });
+    ).subscribe(data => this.tableData.data = data);
 
-    this.filter.valueChanges.subscribe(value => this.tableData.filter = value.trim().toLowerCase())
+    this.tableData.paginator = this.paginator;
+    this.tableData.sort = this.sort;
+    this.filter.valueChanges.subscribe(value => this.tableData.filter = value?.trim().toLowerCase() || '')
   }
 
   openDeposit(customer: Customer) {
     this.dialog
-      .open(DepositDialogComponent, {
-        data: customer,
-      })
+      .open(DepositDialogComponent, { data: customer })
       .afterClosed()
       .subscribe(amount => {
         if (amount) {
@@ -97,9 +83,15 @@ export class CustomerTableComponent implements OnInit {
       });
   }
 
-  showDetails(firstname, lastname, transactions, details, group) {
+  showDetails(customer: Customer) {
     this.dialog.open(CustomerDetailDialogComponent, {
-      data: { firstname, lastname, transactions, details, group },
+      data: {
+        firstname: customer.firstname,
+        lastname: customer.lastname,
+        transactions: customer.transactions,
+        details: customer.details,
+        group: customer.group
+      },
     });
   }
 
@@ -109,7 +101,7 @@ export class CustomerTableComponent implements OnInit {
         data: { ...customer, credit: this.customerService.calculateCredit(customer) }
       })
       .afterClosed()
-      .subscribe((data: { id: string, firstname: string, lastname: string, group: string, details: string }) => {
+      .subscribe((data: { id: number, firstname: string, lastname: string, group: string, details: string }) => {
         if (data !== undefined) {
           this.customerService.editCustomer(data.id, data.firstname, data.lastname, data.details, data.group)
         }

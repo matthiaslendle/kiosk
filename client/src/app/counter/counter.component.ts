@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { CartItem } from 'src/app/models/CartItem';
+import { CartItem } from '../models/CartItem';
 import { map } from 'rxjs/operators';
 import { CustomerService } from '../shared/customer.service';
 import { CartService } from '../shared/cart.service';
@@ -28,10 +28,10 @@ export class CounterComponent {
   // );
 
   cart$ = this.cartService.cart$;
-  cart: CartItem[];
+  cart: CartItem[] = [];
   cartSum$ = this.cartService.cartSum$;
   selectedCustomer$ = this.customerService.selectedCustomer$;
-  selectedCustomer: Customer;
+  selectedCustomer: Customer | null = null;
 
   credit$ = this.selectedCustomer$.pipe(
     map(customer => customer ? this.customerService.calculateCredit(customer) : 0)

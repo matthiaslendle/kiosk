@@ -1,7 +1,9 @@
 import { app, BrowserWindow } from 'electron';
-import path from 'node:path';
+import path from 'path';
 
 let mainWindow: BrowserWindow | null = null;
+
+if (require('electron-squirrel-startup')) app.quit();
 
 function createWindow(): void {
   mainWindow = new BrowserWindow({

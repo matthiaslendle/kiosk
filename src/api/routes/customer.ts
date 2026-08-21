@@ -8,13 +8,13 @@ export const customerRouter = (db: DatabaseAdapter) => {
 
   // Get all
   router.get('/', catchAsync(async (req: Request, res: Response) => {
-    const customers = db.getCustomers();
+    const customers = await db.getCustomers();
     res.json(customers);
   }));
 
   // Add new
   router.post('/', catchAsync(async (req: Request, res: Response) => {
-    const customer = db.addCustomer(req.body);
+    const customer = await db.addCustomer(req.body);
     if (req.body.credit !== 0) {
       db.addTransaction(customer.id, [], req.body.credit, new Date());
     }
@@ -22,16 +22,16 @@ export const customerRouter = (db: DatabaseAdapter) => {
   }));
 
   // Get one by id
-  router.get('/:id', catchAsync(async (req: Request, res: Response) => {
+  router.get('/:id', catchAsync(async (req: Request<{ id: string }>, res: Response) => {
     const id = parseInt(req.params.id, 10);
-    const customer = db.getCustomerByID(id);
+    const customer = await db.getCustomerByID(id);
     res.json(customer);
   }));
 
-  router.patch('/:id', catchAsync(async (req: Request, res: Response) => {
+  router.patch('/:id', catchAsync(async (req: Request<{ id: string }>, res: Response) => {
     const { firstname, lastname, details, group } = req.body;
     const id = parseInt(req.params.id, 10);
-    const customer = db.updateCustomer(id, firstname, lastname, group, details);
+    const customer = await db.updateCustomer(id, firstname, lastname, group, details);
     res.json(customer);
   }));
 

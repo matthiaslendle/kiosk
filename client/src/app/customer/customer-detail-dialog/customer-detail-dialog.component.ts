@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CartItem } from 'src/app/models/CartItem';
-import { Transaction } from 'src/app/models/Transaction';
-import { CurrencyPipe } from 'src/app/shared/currency.pipe';
+import { CartItem } from '../../models/CartItem';
+import { Transaction } from '../../models/Transaction';
+import { CurrencyPipe } from '../../shared/currency.pipe';
+import { Customer } from '../../models/Customer';
 
 @Component({
     selector: 'app-customer-detail-dialog',
@@ -16,7 +17,7 @@ export class CustomerDetailDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CustomerDetailDialogComponent>,
     private currency: CurrencyPipe,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data: Customer
   ) { }
 
   details = this.data.details;

@@ -7,7 +7,5 @@ import { Component, OnInit } from '@angular/core';
     standalone: false
 })
 export class AppComponent implements OnInit {
-  constructor() { }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

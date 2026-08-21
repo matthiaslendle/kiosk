@@ -21,11 +21,11 @@ export class ApiService {
     return this.http.get<Customer[]>(this.apiUrl + '/customer');
   }
 
-  getCustomer(id): Observable<Customer> {
+  getCustomer(id: number): Observable<Customer> {
     return this.http.get<Customer>(this.apiUrl + '/customer/' + id);
   }
 
-  addCustomer(firstname, lastname, group, details, credit): Observable<Customer> {
+  addCustomer(firstname: string, lastname: string, group: string, details: string, credit: number): Observable<Customer> {
     return this.http.post<Customer>(
       this.apiUrl + '/customer',
       { firstname, lastname, group, details, credit },
@@ -33,7 +33,7 @@ export class ApiService {
     );
   }
 
-  updateCustomer(id, firstname, lastname, details, group) {
+  updateCustomer(id: number, firstname: string, lastname: string, details: string, group: string) {
     return this.http.patch<Customer>(
       this.apiUrl + '/customer/' + id,
       { firstname, lastname, details, group },
@@ -41,7 +41,7 @@ export class ApiService {
     )
   }
 
-  addArticle(name, category, price): Observable<Article> {
+  addArticle(name: string, category: string, price: number): Observable<Article> {
     return this.http.post<Article>(
       this.apiUrl + '/article',
       { name, price, category },
@@ -53,13 +53,13 @@ export class ApiService {
     return this.http.get<Article[]>(this.apiUrl + '/article');
   }
 
-  updateArticle(id, name, category): Observable<Article> {
+  updateArticle(id: number, name: string, category: string): Observable<Article> {
     return this.http.patch<Article>(this.apiUrl + '/article/' + id, { name, category }, {
       headers: this.headers,
     });
   }
 
-  toggleArticle(id: string, disabled: boolean): Observable<Article> {
+  toggleArticle(id: number, disabled: boolean): Observable<Article> {
 
     const response = this.http.post<Article>(this.apiUrl + '/article/disable/', { id, disabled }, { headers: this.headers })
     return response
@@ -70,7 +70,7 @@ export class ApiService {
   }
 
   addTransaction(
-    customerId: string,
+    customerId: number,
     cart: CartItem[],
     deposit = 0
   ): Observable<Transaction> {

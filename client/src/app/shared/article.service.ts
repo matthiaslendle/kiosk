@@ -41,10 +41,9 @@ export class ArticleService {
       });
   }
 
-  editArticle(id: string, name: string, category: string) {
+  editArticle(id: number, name: string, category: string) {
     this.apiService.updateArticle(id, name, category)
       .subscribe(a => {
-        console.log(a);
         const oldArticles = this.articlesSubject.getValue();
         const newArticles = [...oldArticles];
         newArticles[a.id] = a;

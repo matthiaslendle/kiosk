@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
 import { Customer } from '../../models/Customer';
-import { CustomerService } from 'src/app/shared/customer.service';
+import { CustomerService } from '../../shared/customer.service';
 import { map, startWith, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -17,11 +17,11 @@ export class CustomerPickerComponent implements OnInit{
   customers$ = this.customerService.customers$;
   selected$ = this.customerService.selectedCustomer$;
   customerCtrl = new UntypedFormControl();
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Observable<string[]> = new Observable();
 
-  @Input() clearEvent: Observable<void>;
+  @Input() clearEvent: Observable<void> = new Observable();
 
-  data = {};
+  data: Record<string, Customer> = {};
 
   constructor(private customerService: CustomerService) { }
   

@@ -15,4 +15,4 @@ import { NewCustomerDialogComponent } from './new-customer-dialog/new-customer-d
   ],
   imports: [CommonModule, SharedModule]
 })
-export class CustomerModule { }
+export class CustomerModule {}

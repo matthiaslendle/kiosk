@@ -8,14 +8,14 @@ export const actionRouter = (db: DatabaseAdapter) => {
 
   // get all
   router.get('/', catchAsync(async (req: Request, res: Response) => {
-    const actions = db.getTransactions();
+    const actions = await db.getTransactions();
     res.json(actions);
   }));
 
   // add one
   router.post('/', catchAsync(async (req: Request, res: Response) => {
     const { customerId, cart, deposit, time } = req.body;
-    const action = db.addTransaction(customerId, cart, deposit, time);
+    const action = await db.addTransaction(customerId, cart, deposit, time);
     res.json(action);
   }));
   return router;

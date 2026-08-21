@@ -1,5 +1,5 @@
-export class Article {
-  id: string;
+export interface Article {
+  id: number;
   name: string;
   price: number;
   category: string;

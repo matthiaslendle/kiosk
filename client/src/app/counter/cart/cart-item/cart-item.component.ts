@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Article } from 'src/app/models/Article';
-import { CartItem } from 'src/app/models/CartItem';
+import { Article } from '../../../models/Article';
+import { CartItem } from '../../../models/CartItem';
 
-import { CartService } from 'src/app/shared/cart.service';
-import { CurrencyPipe } from 'src/app/shared/currency.pipe';
+import { CartService } from '../../../shared/cart.service';
+import { CurrencyPipe } from '../../../shared/currency.pipe';
 
 @Component({
     selector: 'app-cart-item',

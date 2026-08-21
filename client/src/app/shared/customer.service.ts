@@ -9,7 +9,7 @@ import { ApiService } from './api.service';
 })
 export class CustomerService {
   private customersSubject = new BehaviorSubject<Customer[]>([])
-  private selectedSubject = new BehaviorSubject<Customer>(null);
+  private selectedSubject = new BehaviorSubject<Customer | null>(null);
   customers$ = this.customersSubject.asObservable();
   selectedCustomer$ = this.selectedSubject.asObservable();
 
@@ -32,11 +32,15 @@ export class CustomerService {
       })
   }
 
-  addTransaction(customerId: string, cart: CartItem[], deposit: number) {
+  addTransaction(customerId: number, cart: CartItem[], deposit: number) {
     this.apiService.addTransaction(customerId, cart, deposit)
       .subscribe(transaction => {
         const customers = this.customersSubject.getValue();
         const customer = customers.find(c => c.id === customerId);
+        if (!customer) {
+            console.error("invalid customerID");
+            return;
+        };
         customer.transactions.push(transaction);
         this.customersSubject.next(customers);
       });
@@ -50,7 +54,7 @@ export class CustomerService {
     this.selectedSubject.next(null);
   }
 
-  editCustomer(id: string, firstname: string, lastname: string, details: string, group: string) {
+  editCustomer(id: number, firstname: string, lastname: string, details: string, group: string) {
     this.apiService.updateCustomer(id, firstname, lastname, details, group)
       .subscribe(c => {
         const oldCustomers = this.customersSubject.getValue();

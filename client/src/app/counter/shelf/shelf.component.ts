@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Article } from 'src/app/models/Article';
+import { Article } from '../../models/Article';
 
 import { map } from 'rxjs/operators';
 
-import { CartService } from 'src/app/shared/cart.service';
-import { ArticleService } from 'src/app/shared/article.service';
-import { CurrencyPipe } from 'src/app/shared/currency.pipe';
+import { CartService } from '../../shared/cart.service';
+import { ArticleService } from '../../shared/article.service';
+import { CurrencyPipe } from '../../shared/currency.pipe';
 
 @Component({
     selector: 'app-shelf',

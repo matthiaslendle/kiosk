@@ -4,7 +4,7 @@ export interface Transaction {
   id: number;
   cart: CartItem[];
   deposit: number;
-  time: Date;
+  time: number;
 }
 
 export interface CartItem {
