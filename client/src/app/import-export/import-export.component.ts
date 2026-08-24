@@ -5,10 +5,10 @@ import { ArticleService } from '../shared/article.service';
 import { CustomerService } from '../shared/customer.service';
 
 @Component({
-    selector: 'app-import-export',
-    templateUrl: './import-export.component.html',
-    styleUrls: ['./import-export.component.scss'],
-    standalone: false
+  selector: 'app-import-export',
+  templateUrl: './import-export.component.html',
+  styleUrls: ['./import-export.component.scss'],
+  standalone: false
 })
 
 export class ImportExportComponent implements OnInit {

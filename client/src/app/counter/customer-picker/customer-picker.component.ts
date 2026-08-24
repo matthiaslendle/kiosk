@@ -7,12 +7,12 @@ import { map, startWith, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-customer-picker',
-    styleUrls: ['./customer-picker.component.scss'],
-    templateUrl: './customer-picker.component.html',
-    standalone: false
+  selector: 'app-customer-picker',
+  styleUrls: ['./customer-picker.component.scss'],
+  templateUrl: './customer-picker.component.html',
+  standalone: false
 })
-export class CustomerPickerComponent implements OnInit{
+export class CustomerPickerComponent implements OnInit {
 
   customers$ = this.customerService.customers$;
   selected$ = this.customerService.selectedCustomer$;
@@ -24,7 +24,7 @@ export class CustomerPickerComponent implements OnInit{
   data: Record<string, Customer> = {};
 
   constructor(private customerService: CustomerService) { }
-  
+
   ngOnInit(): void {
 
     this.customers$.subscribe(customers => {
@@ -48,7 +48,7 @@ export class CustomerPickerComponent implements OnInit{
 
   }
 
-  private filter(value: string){
+  private filter(value: string) {
     const filterValue = value.toLowerCase();
     return Object.keys(this.data).filter(option => option.toLowerCase().startsWith(filterValue))
   }

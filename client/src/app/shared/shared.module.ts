@@ -17,4 +17,4 @@ import { CurrencyPipe } from './currency.pipe';
     CurrencyPipe,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

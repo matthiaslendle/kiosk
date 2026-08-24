@@ -9,7 +9,6 @@ import { CartItem } from '../models/CartItem';
   providedIn: 'root'
 })
 export class CartService {
-
   private cartSubject: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
 
   cart$ = this.cartSubject.asObservable();
@@ -22,10 +21,10 @@ export class CartService {
   addItem(article: Article) {
     const cart = this.cartSubject.getValue();
     const item = cart.find(e => e.article === article);
-    if(item) {
+    if (item) {
       item.quantity++;
     } else {
-      cart.push({article, quantity: 1});
+      cart.push({ article, quantity: 1 });
     }
     this.cartSubject.next(cart);
   }
@@ -33,7 +32,7 @@ export class CartService {
   removeItem(article: Article) {
     let cart = this.cartSubject.getValue();
     const item = cart.find(e => e.article === article);
-    if(item) {
+    if (item) {
       item.quantity--;
       if (item.quantity === 0) {
         cart = cart.filter(e => e.quantity > 0);

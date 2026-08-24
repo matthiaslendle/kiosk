@@ -37,4 +37,4 @@ registerLocaleData(localeDe);
         provideHttpClient(withInterceptorsFromDi())
     ]
 })
-export class AppModule {}
+export class AppModule { }

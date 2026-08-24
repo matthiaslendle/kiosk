@@ -4,12 +4,7 @@
   <mat-label>Filter</mat-label>
   <input matInput [formControl]="filter" />
   @if (filter.value) {
-  <button
-    matSuffix
-    mat-icon-button
-    aria-label="Clear"
-    (click)="filter.setValue('')"
-  >
+  <button matSuffix mat-icon-button aria-label="Clear" (click)="filter.setValue('')">
     <img src="assets/close_black_24dp.svg" alt="close" />
   </button>
   }

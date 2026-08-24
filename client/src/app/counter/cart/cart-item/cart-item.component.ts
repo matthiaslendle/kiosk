@@ -6,21 +6,25 @@ import { CartService } from '../../../shared/cart.service';
 import { CurrencyPipe } from '../../../shared/currency.pipe';
 
 @Component({
-    selector: 'app-cart-item',
-    templateUrl: './cart-item.component.html',
-    styleUrls: ['./cart-item.component.scss'],
-    standalone: false
+  selector: 'app-cart-item',
+  templateUrl: './cart-item.component.html',
+  styleUrls: ['./cart-item.component.scss'],
+  standalone: false
 })
 export class CartItemComponent {
-  @Input() item: CartItem;
+  @Input() item: CartItem | undefined;
   constructor(private cartService: CartService, private currency: CurrencyPipe) { }
 
   addClick() {
-    this.cartService.addItem(this.item.article);
+    if (this.item) {
+      this.cartService.addItem(this.item.article);
+    }
   }
 
   removeClick() {
-    this.cartService.removeItem(this.item.article);
+    if (this.item) {
+      this.cartService.removeItem(this.item.article);
+    }
   }
 
   articleDesc(article: Article) {

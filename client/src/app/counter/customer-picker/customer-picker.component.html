@@ -1,13 +1,7 @@
 <div class="picker">
   <mat-form-field>
-    <input
-      type="text"
-      matInput
-      placeholder="Teilnehmer"
-      aria-label="Teilnehmer"
-      [matAutocomplete]="auto"
-      [formControl]="customerCtrl"
-    />
+    <input type="text" matInput placeholder="Teilnehmer" aria-label="Teilnehmer" [matAutocomplete]="auto"
+      [formControl]="customerCtrl" />
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       @for (item of filteredOptions | async; track item) {
       <mat-option [value]="item">
@@ -16,12 +10,7 @@
       }
     </mat-autocomplete>
     @if (customerCtrl.value) {
-    <button
-      mat-icon-button
-      (click)="clearButtonClick()"
-      matSuffix
-      aria-label="clear"
-    >
+    <button mat-icon-button (click)="clearButtonClick()" matSuffix aria-label="clear">
       <img src="assets/close_black_24dp.svg" alt="close" />
     </button>
     } @if (selected$ | async) {

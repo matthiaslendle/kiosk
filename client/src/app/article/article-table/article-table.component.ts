@@ -69,11 +69,11 @@ export class ArticleTableComponent implements OnInit {
       .open(NewArticleDialogComponent)
       .afterClosed()
       .subscribe((data?: { name: string, category: string, price: string }) => {
-          if (data !== undefined) {
-            const cents = Math.floor(parseFloat(data.price.replace(",", ".")) * 100)
-            this.articleService.addArticle(data.name, data.category, Math.floor(cents))
-          }
+        if (data !== undefined) {
+          const cents = Math.floor(parseFloat(data.price.replace(",", ".")) * 100)
+          this.articleService.addArticle(data.name, data.category, Math.floor(cents))
         }
+      }
       );
   }
 
